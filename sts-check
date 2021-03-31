@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PS1_ORIG=$PS1
+
+sts_check() {
+  local RET=$?
+  local RED="\[$(tput setab 1)\]"
+  local GREEN="\[$(tput setab 2)\]"
+  local RESET="\[$(tput sgr0)\]"
+
+  case $RET in
+    0)
+      PS1="${GREEN} ${RESET}"$PS1_ORIG
+      ;;
+    *)
+      PS1="${RED}${RET}${RESET}"$PS1_ORIG
+      ;;
+  esac
+}
+
+PROMPT_COMMAND='sts_check'
